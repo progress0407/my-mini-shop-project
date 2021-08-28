@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="item-list (title, nav, link, script)">
+<head>
+    <meta charset="UTF-8">
+        <!-- thymeleaf property start -->
+        <link th:replace="${link}">
+        <script th:replace=${script}></script>
+        <!-- thymeleaf property end -->
+    <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/lib/common.css">
+    <script src="../../static/lib/jquery.min.js"></script>
+    <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <style>
+      table > tbody > tr:hover {
+        color: brown;
+        background-color: beige;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .glyphicon-remove {
+        color: red;
+      }
+
+      .glyphicon-remove:hover {
+        background-color: gold;
+      }
+    </style>
+    <title th:replace="${title}">#</title>
+</head>
+<body>
+  <nav th:replace="${nav}"></nav>
+  <div class="container" th:fragment="item-list">
+  
+    <a href="/add" type="button" class="btn btn-primary" >내 상품 등록하기</a>
+    <hr>
+    <div class="panel panel-warning" >
+        <div class="panel-heading"><span class="glyphicon glyphicon-tags">&nbsp;&nbsp;</span> 아이템 목록</div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>상품번호</th>
+                    <th>상품명</th>
+                    <th>가격</th>
+                    <th>재고량</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>0</td>
+                    <td>HTML샘플 :: 노트북</td>
+                    <td>15000</td>
+                    <td>21</td>
+                    <td></td>
+                  </tr>
+                  <tr th:each="item : ${items}" th:onclick="|location.href='/item/${item.id}'|">
+                      <td th:text="${item.id}"> id </td>
+                      <td th:text="${item.name}">name</td>
+                      <td th:text="${item.price}">price</td>
+                      <td th:text="${item.quantity}">quantity</td>
+                      <td><a href="#" th:href="|/delete/${item.id}|"><span class="glyphicon glyphicon-remove"></span></a></td>
+                  </tr>
+                </a>
+                </tbody>
+            </table>
+        </div>
+      </div>
+  </div>
+</body>
+</html>

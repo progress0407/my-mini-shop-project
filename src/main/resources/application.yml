@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    swcho.mini.mvc: debug
+    org:
+      apache:
+        coyote:
+          http11=debug:

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="index (title, nav, link, script)">
+<head>
+    <meta charset="UTF-8">
+    <!-- thymeleaf property start -->
+    <link th:replace="${link}">
+    <script th:replace=${script}></script>
+    <!-- thymeleaf property end -->
+    <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/lib/common.css">
+    <script th:replace="${script}" src="../../static/lib/jquery.min.js"></script>
+    <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <title th:replace="${title}">#</title>
+</head>
+<body>
+    <nav th:replace="${nav}"></nav>
+    <div class="container">
+        <div class="jumbotron" >
+          <h1>swcho's shop</h1>
+          <p>swcho's mini scale shop. you can do shopping service. make happy time with shopping</p>
+        </div>
+  </div>
+</body>
+</html>

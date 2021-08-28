@@ -1,0 +1,32 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+* {
+  font-family: "Nanum Gothic";
+}
+
+.container {
+  padding-top: 2em;
+}
+
+.jumbotron {
+  /* 경로문제 때문에 이 속성은 공통으로 둔다 */
+  /* background-image: url("../../static/images/jumbotronBackground.jpg"); */
+  background-image: url("../images/jumbotronBackground.jpg");
+  background-size: cover;
+  text-shadow: black 0.2em 0.2em 0.2em;
+  color: white;
+}
+
+table > tbody > tr:hover {
+  color: brown;
+  background-color: beige;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.glyphicon-remove {
+  color: red;
+}
+
+.glyphicon-remove:hover {
+  background-color: gold;
+}
