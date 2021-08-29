@@ -6,21 +6,19 @@
   <link th:replace="${link}">
   <script th:replace=${script}></script>
   <!-- thymeleaf property end -->
-  <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" id="ls">
-  <link rel="stylesheet" href="../../static/lib/common.css" id="ls">
-  <script src="../../static/lib/jquery.min.js" id="ls"></script>
-  <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js" id="ls"></script>
+  <!--/*-->
+  <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../static/lib/common.css">
+  <script src="../../static/lib/jquery.min.js"></script>
+  <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+  <!--*/-->
   <script th:inline="javascript">
-    // debugger;
-      let updateForm;
-      let itemList;
       // $(window).load(function() {
       $(document).ready(function() {
-        updateForm = /*[[${idReadonly}]]*/  "no-data";
-        itemList = /*[[${itemList}]]*/ "no-data";
-        if(updateForm === true) {
+        let dmlType = /*[[${dmlType}]]*/  "no-data";
+        if(dmlType === "U") {
           $("input[id='id']").prop('value', [[${item.id}]]);
-          $("input[id='name']").prop('value', [[${item.name}]]);
+		      $("input[id='name']").prop('value', [[${item.name}]]);
           $("input[id='price']").prop('value', [[${item.price}]]);
           $("input[id='quantity']").prop('value', [[${item.quantity}]]);
           $("input[id='description']").prop('value', [[${item.description}]]);

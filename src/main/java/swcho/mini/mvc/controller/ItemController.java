@@ -32,7 +32,7 @@ public class ItemController {
     }
 
     /**
-     * 조회
+     * 리스트 조회
      */
     @GetMapping("/list")
     public String boardList(Model model) {
@@ -55,6 +55,8 @@ public class ItemController {
         model.addAttribute("fragmentName", "item-detail");
 
         model.addAttribute("item", itemRepository.findItemById(id));
+
+
         return layoutPath;
     }
 
@@ -65,6 +67,7 @@ public class ItemController {
     public String addForm(Model model) {
         model.addAttribute("fragmentPath", "fragments/item-add-update");
         model.addAttribute("fragmentName", "item-add-update");
+        model.addAttribute("item", new Item()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
 
         return "/layout";
     }
@@ -86,7 +89,7 @@ public class ItemController {
     }
 
     /**
-     * 삭제
+     * 리스트에서 삭제
      */
     @GetMapping("/delete/{itemId}")
     public String removeItemOne(@PathVariable("itemId") long id, Model model) {
@@ -103,13 +106,11 @@ public class ItemController {
     public String updateForm(@PathVariable("itemId") long id, Model model) {
         System.out.println("ItemController.updateForm");
         log.debug("id = {}", id);
-        log.debug("model = {}", model);
 
         model.addAttribute("fragmentPath", "fragments/item-add-update");
         model.addAttribute("fragmentName", "item-add-update");
-        model.addAttribute("idReadonly", true);
+        model.addAttribute("dmlType", "U");
         model.addAttribute("item", itemRepository.findItemById(id));
-        model.addAttribute("itemList", itemRepository.findAllItems());
 
         log.debug("item = {}", itemRepository.findItemById(id));
 

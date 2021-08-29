@@ -15,18 +15,3 @@
   text-shadow: black 0.2em 0.2em 0.2em;
   color: white;
 }
-
-table > tbody > tr:hover {
-  color: brown;
-  background-color: beige;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.glyphicon-remove {
-  color: red;
-}
-
-.glyphicon-remove:hover {
-  background-color: gold;
-}

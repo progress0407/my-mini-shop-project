@@ -2,14 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="item-list (title, nav, link, script)">
 <head>
     <meta charset="UTF-8">
-        <!-- thymeleaf property start -->
-        <link th:replace="${link}">
-        <script th:replace=${script}></script>
-        <!-- thymeleaf property end -->
+    <!-- thymeleaf property start -->
+    <link th:replace="${link}">
+    <script th:replace=${script}></script>
+    <!-- thymeleaf property end -->
+    <!--/*-->
     <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../static/lib/common.css">
     <script src="../../static/lib/jquery.min.js"></script>
     <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <!--*/-->
     <style>
       table > tbody > tr:hover {
         color: brown;
@@ -62,7 +64,6 @@
                       <td th:text="${item.quantity}">quantity</td>
                       <td><a href="#" th:href="|/delete/${item.id}|"><span class="glyphicon glyphicon-remove"></span></a></td>
                   </tr>
-                </a>
                 </tbody>
             </table>
         </div>
