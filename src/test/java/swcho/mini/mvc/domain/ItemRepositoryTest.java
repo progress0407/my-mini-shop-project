@@ -41,7 +41,7 @@ class ItemRepositoryTest {
     public void 수정() {
         System.out.println("ItemRepositoryTest.수정");
 
-        Item updateItem = itemRepository.updateItem(new Item(2L, "레노버 놋북 빨콩 최고", 780000L, 300L));
+        Item updateItem = itemRepository.updateItem(new Item(2L, "레노버 놋북 빨콩 최고", 780000L, 300L, "내용"));
         log.debug("updateItem = {}", updateItem);
 
         assertThat(updateItem.getName()).isEqualTo("레노버 놋북 빨콩 최고");

@@ -16,16 +16,18 @@
     // $(window).load(function() {
     $(document).ready(function() {
       let dmlType = /*[[${dmlType}]]*/  "no-data";
-      if(dmlType === "U" || dmlType === "R") {
-        $("input[id='id']").prop('value', [[${item.id}]]);
-        $("input[id='name']").prop('value', [[${item.name}]]);
-        $("input[id='price']").prop('value', [[${item.price}]]);
-        $("input[id='quantity']").prop('value', [[${item.quantity}]]);
-        $("input[id='description']").prop('value', [[${item.description}]]);
+      if(dmlType === "C" || dmlType === "U") {
+        $(".status-read").remove();
+        // $("input[id='id']").prop('value', [[${item.id}]]);
+        // $("input[id='name']").prop('value', [[${item.name}]]);
+        // $("input[id='price']").prop('value', [[${item.price}]]);
+        // $("input[id='quantity']").prop('value', [[${item.quantity}]]);
+        // $("input[id='description']").prop('value', [[${item.description}]]);
       }
       if(dmlType === "R") {
-        $("input").prop("readonly", true);
-        $("textarea").prop("readonly", true);
+        $(".status-register-edit").remove();
+        // $("input").prop("readonly", true);
+        // $("textarea").prop("readonly", true);
       }
     });
   </script>
@@ -40,6 +42,7 @@
     <div class="panel panel-warning">
       <div class="panel-heading"><span class="glyphicon glyphicon-tags">&nbsp;&nbsp;</span> 아이템 목록</div>
       <div class="panel-body">
+
         <form th:action th:object="${item}" method="POST">
 
           <div class="panel panel-success" th:if="${dmlType} == 'R' or ${dmlType} == 'U' ">
@@ -47,7 +50,8 @@
               <label for="id">상품ID</label>
             </div>
             <div class="panel-body">
-              <input type="text" class="form-control" th:field="*{id}" placeholder="이름을 입력하세요">
+              <input type="text" class="form-control status-register-edit" th:field="*{id}" readonly>
+              <span class="status-read" th:text="${item.name}"></span>
             </div>
           </div>
 
@@ -56,7 +60,8 @@
                 <label for="name">상품명</label>
               </div>
               <div class="panel-body">
-                <input type="text" class="form-control" th:field="*{name}" placeholder="이름을 입력하세요">
+                <input type="text" class="form-control status-register-edit" th:field="*{name}" placeholder="이름을 입력하세요">
+                <span class="status-read" th:text="${item.name}"></span>
               </div>
           </div>
   
@@ -65,7 +70,8 @@
                 <label for="price">상품가격</label>
               </div>
               <div class="panel-body">
-                <input type="number" step="500" class="form-control" th:field="*{price}" placeholder="가격을 입력하세요">
+                <input type="number" step="500" class="form-control status-register-edit" th:field="*{price}" placeholder="가격을 입력하세요">
+                <span class="status-read" th:text="${item.price}"></span>
               </div>
           </div>
   
@@ -74,7 +80,8 @@
                 <label for="quantity">재고수량</label>
               </div>
               <div class="panel-body">
-                <input type="number" step="100" class="form-control" th:field="*{quantity}" placeholder="수량을 입력하세요">
+                <input type="number" step="100" class="form-control status-register-edit" th:field="*{quantity}" placeholder="수량을 입력하세요">
+                <span class="status-read" th:text="${item.quantity}"></span>
               </div>
           </div>
   
@@ -83,7 +90,8 @@
                 <label for="description">상품 설명</label>
               </div>
               <div class="panel-body">
-                <textarea class="form-control" id="description" name="description" placeholder="설명을 입력하세요"></textarea>
+                <textarea class="form-control status-register-edit" th:field="*{description}" placeholder="설명을 입력하세요"></textarea>
+                <span class="status-read" th:utext="${item.description}"></span>
               </div>
           </div>
   

@@ -28,7 +28,6 @@ public class ItemController {
         model.addAttribute("fragmentPath", "fragments/index");
         model.addAttribute("fragmentName", "index");
 
-        model.addAttribute("foo", "index Something");
         return layoutPath;
     }
 
@@ -38,8 +37,7 @@ public class ItemController {
     @GetMapping("/list")
     public String boardList(Model model) {
 
-        model.addAttribute("fragmentPath", "fragments/item-list");
-        model.addAttribute("fragmentName", "item-list");
+        viewFragmentModelAdd(model, "fragments/item-list", "item-list", null);
 
         List<Item> items = itemRepository.findAllItems();
 
@@ -53,9 +51,7 @@ public class ItemController {
      */
     @GetMapping("/item/{itemId}")
     public String getItemDetail(@PathVariable("itemId") long id, Model model) {
-        model.addAttribute("fragmentPath", "fragments/item-detail-add-update");
-        model.addAttribute("fragmentName", "item-detail-add-update");
-        model.addAttribute("dmlType", "R");
+        viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "R");
 
         model.addAttribute("item", itemRepository.findItemById(id));
 
@@ -68,9 +64,7 @@ public class ItemController {
      */
     @GetMapping("/add")
     public String addForm(Model model) {
-        model.addAttribute("fragmentPath", "fragments/item-detail-add-update");
-        model.addAttribute("fragmentName", "item-detail-add-update");
-        model.addAttribute("dmlType", "C");
+        viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
 
         model.addAttribute("item", new Item()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
 
@@ -111,9 +105,7 @@ public class ItemController {
         log.debug("ItemController.updateForm");
         log.debug("id = {}", id);
 
-        model.addAttribute("fragmentPath", "fragments/item-detail-add-update");
-        model.addAttribute("fragmentName", "item-detail-add-update");
-        model.addAttribute("dmlType", "U");
+        viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "U");
         model.addAttribute("item", itemRepository.findItemById(id));
 
         log.debug("item = {}", itemRepository.findItemById(id));
@@ -135,4 +127,9 @@ public class ItemController {
         return "redirect:/item/" + item.getId();
     }
 
+    private void viewFragmentModelAdd(Model model, String fragmentPath, String fragmentName, String dmlType) {
+        model.addAttribute("fragmentPath", fragmentPath);
+        model.addAttribute("fragmentName", fragmentName);
+        model.addAttribute("dmlType", dmlType);
+    }
 }
