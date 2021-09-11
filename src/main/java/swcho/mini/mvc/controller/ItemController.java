@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swcho.mini.mvc.domain.Item;
 import swcho.mini.mvc.domain.ItemRepository;
 
@@ -36,6 +37,7 @@ public class ItemController {
      */
     @GetMapping("/list")
     public String boardList(Model model) {
+
         model.addAttribute("fragmentPath", "fragments/item-list");
         model.addAttribute("fragmentName", "item-list");
 
@@ -47,12 +49,13 @@ public class ItemController {
     }
 
     /**
-     * 상세 조회
+     * 상세 폼
      */
     @GetMapping("/item/{itemId}")
     public String getItemDetail(@PathVariable("itemId") long id, Model model) {
-        model.addAttribute("fragmentPath", "fragments/item-detail");
-        model.addAttribute("fragmentName", "item-detail");
+        model.addAttribute("fragmentPath", "fragments/item-detail-add-update");
+        model.addAttribute("fragmentName", "item-detail-add-update");
+        model.addAttribute("dmlType", "R");
 
         model.addAttribute("item", itemRepository.findItemById(id));
 
@@ -61,12 +64,14 @@ public class ItemController {
     }
 
     /**
-     * 추가 양식
+     * 추가 폼
      */
     @GetMapping("/add")
     public String addForm(Model model) {
-        model.addAttribute("fragmentPath", "fragments/item-add-update");
-        model.addAttribute("fragmentName", "item-add-update");
+        model.addAttribute("fragmentPath", "fragments/item-detail-add-update");
+        model.addAttribute("fragmentName", "item-detail-add-update");
+        model.addAttribute("dmlType", "C");
+
         model.addAttribute("item", new Item()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
 
         return "/layout";
@@ -76,23 +81,22 @@ public class ItemController {
      * 추가
      */
     @PostMapping("/add")
-    public String add(@ModelAttribute Item item) {
-//        @ModelAttribute Item item
-//        @RequestBody Item item2
+    public String add(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
 
         log.debug("item = {}", item);
-//        log.debug("item2 = {}", item2);
 
-        itemRepository.addItem(item);
+        Item savedItem = itemRepository.addItem(item);
 
-        return "redirect:/index";
+        redirectAttributes.addAttribute("status", true);
+
+        return "redirect:/item/" + savedItem.getId();
     }
 
     /**
      * 리스트에서 삭제
      */
     @GetMapping("/delete/{itemId}")
-    public String removeItemOne(@PathVariable("itemId") long id, Model model) {
+    public String removeItemOne(@PathVariable("itemId") Long id, Model model) {
 
         itemRepository.deleteItemById(id);
 
@@ -100,15 +104,15 @@ public class ItemController {
     }
 
     /**
-     * 변경 양식
+     * 수정 폼
      */
     @GetMapping("/update/{itemId}")
-    public String updateForm(@PathVariable("itemId") long id, Model model) {
-        System.out.println("ItemController.updateForm");
+    public String updateForm(@PathVariable("itemId") Long id, Model model) {
+        log.debug("ItemController.updateForm");
         log.debug("id = {}", id);
 
-        model.addAttribute("fragmentPath", "fragments/item-add-update");
-        model.addAttribute("fragmentName", "item-add-update");
+        model.addAttribute("fragmentPath", "fragments/item-detail-add-update");
+        model.addAttribute("fragmentName", "item-detail-add-update");
         model.addAttribute("dmlType", "U");
         model.addAttribute("item", itemRepository.findItemById(id));
 
@@ -118,10 +122,10 @@ public class ItemController {
     }
 
     /**
-     * 변경
+     * 수정
      */
     @PostMapping("/update/{itemId}")
-    public String update(@PathVariable("itemId") long id, @ModelAttribute Item item) {
+    public String update(@PathVariable("itemId") Long id, @ModelAttribute Item item) {
         System.out.println("ItemController.update");
         log.debug("id = {}", id);
         log.debug("item = {}", item);

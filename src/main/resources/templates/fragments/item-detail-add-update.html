@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="item-detail-add-update (title, nav, link, script)">
+<head>
+  <meta charset="UTF-8">
+  <!-- thymeleaf property start -->
+  <link th:replace="${link}">
+  <script th:replace=${script}></script>
+  <!-- thymeleaf property end -->
+  <!--/*-->
+  <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../static/lib/common.css">
+  <script src="../../static/lib/jquery.min.js"></script>
+  <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+  <!--*/-->
+  <script th:inline="javascript">
+    // $(window).load(function() {
+    $(document).ready(function() {
+      let dmlType = /*[[${dmlType}]]*/  "no-data";
+      if(dmlType === "U" || dmlType === "R") {
+        $("input[id='id']").prop('value', [[${item.id}]]);
+        $("input[id='name']").prop('value', [[${item.name}]]);
+        $("input[id='price']").prop('value', [[${item.price}]]);
+        $("input[id='quantity']").prop('value', [[${item.quantity}]]);
+        $("input[id='description']").prop('value', [[${item.description}]]);
+      }
+      if(dmlType === "R") {
+        $("input").prop("readonly", true);
+        $("textarea").prop("readonly", true);
+      }
+    });
+  </script>
+  <title th:replace="${title}">#</title>
+</head>
+<body>
+  <nav th:replace="${nav}"></nav>
+  <div class="container" th:fragment="item-detail-add-update">
+    <a href="/list" class="btn btn-primary">목록으로</a>
+    <div th:if="${param.status}" th:text="'상품 저장이 성공적으로 되었습니다!'"></div>
+    <hr>
+    <div class="panel panel-warning">
+      <div class="panel-heading"><span class="glyphicon glyphicon-tags">&nbsp;&nbsp;</span> 아이템 목록</div>
+      <div class="panel-body">
+        <form th:action th:object="${item}" method="POST">
+
+          <div class="panel panel-success" th:if="${dmlType} == 'R' or ${dmlType} == 'U' ">
+            <div class="panel-heading">
+              <label for="id">상품ID</label>
+            </div>
+            <div class="panel-body">
+              <input type="text" class="form-control" th:field="*{id}" placeholder="이름을 입력하세요">
+            </div>
+          </div>
+
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <label for="name">상품명</label>
+              </div>
+              <div class="panel-body">
+                <input type="text" class="form-control" th:field="*{name}" placeholder="이름을 입력하세요">
+              </div>
+          </div>
+  
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <label for="price">상품가격</label>
+              </div>
+              <div class="panel-body">
+                <input type="number" step="500" class="form-control" th:field="*{price}" placeholder="가격을 입력하세요">
+              </div>
+          </div>
+  
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <label for="quantity">재고수량</label>
+              </div>
+              <div class="panel-body">
+                <input type="number" step="100" class="form-control" th:field="*{quantity}" placeholder="수량을 입력하세요">
+              </div>
+          </div>
+  
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <label for="description">상품 설명</label>
+              </div>
+              <div class="panel-body">
+                <textarea class="form-control" id="description" name="description" placeholder="설명을 입력하세요"></textarea>
+              </div>
+          </div>
+  
+          <div class="row" th:if="${dmlType} == 'R'" >
+            <div class="col-md-6">
+              <a href="#" th:href="|/update/${item.id}|" class="btn btn-warning">수정</a>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+              <a href="#" th:href="|/delete/${item.id}|" class="btn btn-danger">삭제</a>
+            </div>
+          </div>
+
+          <button th:if="${dmlType} == 'U'" class="btn btn-warning">수정하기</button>
+
+          <button th:if="${dmlType} == 'C'" class="btn btn-warning">등록하기</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
