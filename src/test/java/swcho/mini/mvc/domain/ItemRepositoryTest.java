@@ -3,6 +3,10 @@ package swcho.mini.mvc.domain;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import swcho.mini.mvc.SampleDataInit;
+import swcho.mini.mvc.domain.item.Item;
+import swcho.mini.mvc.controller.repository.ItemRepository;
+import swcho.mini.mvc.domain.item.ItemType;
 
 import java.util.List;
 
@@ -15,11 +19,12 @@ class ItemRepositoryTest {
 
 //    @Autowired
     ItemRepository itemRepository = new ItemRepository();
+    SampleDataInit sampleDataInit = new SampleDataInit(itemRepository);
 
     @BeforeEach
     public void 모두_비우기() {
         itemRepository.deleteAll();
-        itemRepository.init();
+        sampleDataInit.init();
     }
 
     @Test
@@ -41,7 +46,16 @@ class ItemRepositoryTest {
     public void 수정() {
         System.out.println("ItemRepositoryTest.수정");
 
-        Item updateItem = itemRepository.updateItem(new Item(2L, "레노버 놋북 빨콩 최고", 780000L, 300L, "내용"));
+        Item item = new Item(2L
+                            , "레노버 놋북 빨콩 최고"
+                            , 780000L
+                            , 300L
+                            , "내용"
+                            , true
+                            , List.of("SEOUL")
+                            , ItemType.KEYBOARD
+                            , "NORMAL");
+        Item updateItem = itemRepository.updateItem(item);
         log.debug("updateItem = {}", updateItem);
 
         assertThat(updateItem.getName()).isEqualTo("레노버 놋북 빨콩 최고");

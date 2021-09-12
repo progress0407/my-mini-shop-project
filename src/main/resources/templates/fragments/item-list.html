@@ -37,15 +37,18 @@
     <a href="/add" type="button" class="btn btn-primary" >내 상품 등록하기</a>
     <hr>
     <div class="panel panel-warning" >
-        <div class="panel-heading"><span class="glyphicon glyphicon-tags">&nbsp;&nbsp;</span> 아이템 목록</div>
+        <div class="panel-heading">
+          <span class="glyphicon glyphicon-tags">&nbsp;&nbsp;</span>
+          <span th:text="#{page.items}">상품 목록</span>
+        </div>
         <div class="panel-body">
             <table class="table table-condensed">
                 <thead>
                   <tr>
-                    <th>상품번호</th>
-                    <th>상품명</th>
-                    <th>가격</th>
-                    <th>재고량</th>
+                    <th th:text="#{label.item.id}">상품번호</th>
+                    <th th:text="#{label.item.name}">상품명</th>
+                    <th th:text="#{label.item.price}">가격</th>
+                    <th th:text="#{label.item.quantity}">재고량</th>
                     <th></th>
                   </tr>
                 </thead>

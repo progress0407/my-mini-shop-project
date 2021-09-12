@@ -6,10 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import swcho.mini.mvc.domain.Item;
-import swcho.mini.mvc.domain.ItemRepository;
+import swcho.mini.mvc.domain.item.DeliveryCode;
+import swcho.mini.mvc.domain.item.Item;
+import swcho.mini.mvc.controller.repository.ItemRepository;
+import swcho.mini.mvc.domain.item.ItemType;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,11 +25,35 @@ public class ItemController {
     private final ItemRepository itemRepository;
     public static final String layoutPath = "/layout";
 
+    @ModelAttribute("deliveryCodes")
+    public List<DeliveryCode> deliveryCodes() {
+        List<DeliveryCode> deliveryCodes = new LinkedList<>();
+        deliveryCodes.add(new DeliveryCode("FAST", "하루 배송"));
+        deliveryCodes.add(new DeliveryCode("NORMAL", "일반 배송"));
+        return deliveryCodes;
+    }
+
+    @ModelAttribute("regions")
+    public Map<String, String> regions() {
+        Map<String, String> regions = new LinkedHashMap<>();
+        regions.put("SEOUL", "서울");
+        regions.put("BUSAN", "부산");
+        regions.put("JEJU", "제주도");
+        return regions;
+    }
+
+    @ModelAttribute("itemTypes")
+    public ItemType[] itemType() {
+        return ItemType.values();
+    }
+
     /**
      * 첫화면
      */
     @GetMapping({"/", "/index"})
+
     public String index(Model model) {
+
         model.addAttribute("fragmentPath", "fragments/index");
         model.addAttribute("fragmentName", "index");
 
@@ -123,7 +152,7 @@ public class ItemController {
         log.debug("item = {}", item);
 
         itemRepository.updateItem(item);
-        
+
         return "redirect:/item/" + item.getId();
     }
 
