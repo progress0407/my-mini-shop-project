@@ -1,4 +1,4 @@
-package swcho.mini.mvc.controller.repository;
+package swcho.mini.mvc.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

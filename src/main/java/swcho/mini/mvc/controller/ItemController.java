@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swcho.mini.mvc.domain.item.DeliveryCode;
 import swcho.mini.mvc.domain.item.Item;
-import swcho.mini.mvc.controller.repository.ItemRepository;
+import swcho.mini.mvc.repository.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
 
 import java.util.LinkedHashMap;

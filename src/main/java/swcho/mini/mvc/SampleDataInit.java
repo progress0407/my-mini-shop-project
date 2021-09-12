@@ -2,7 +2,7 @@ package swcho.mini.mvc;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import swcho.mini.mvc.controller.repository.ItemRepository;
+import swcho.mini.mvc.repository.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
 
 import javax.annotation.PostConstruct;
