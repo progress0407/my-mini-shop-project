@@ -56,6 +56,10 @@
 
         <form th:action th:object="${item}" method="POST">
 
+          <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+          </div>
+
           <div class="row">
             <div class="col-md-3" th:if="${dmlType} == 'R' or ${dmlType} == 'U'">
               <div class="panel panel-success" >
@@ -64,7 +68,7 @@
                 </div>
                 <div class="panel-body">
                   <input type="text" class="form-control status-register-edit" th:field="*{id}" readonly>
-                  <span class="status-read" th:text="${item.name}"></span>
+                  <span class="status-read" th:text="${item.id}"></span>
                 </div>
               </div>
             </div>
@@ -74,8 +78,11 @@
                     <label for="name" th:text="#{label.item.name}">상품명</label>
                   </div>
                   <div class="panel-body">
-                    <input type="text" class="form-control status-register-edit" th:field="*{name}" placeholder="이름을 입력하세요">
+                    <input type="text" class="form-control status-register-edit" th:field="*{name}" th:errorclass="field-error" placeholder="이름을 입력하세요">
                     <span class="status-read" th:text="${item.name}"></span>
+                    <div class="field-error" th:errors="*{name}">
+                      상품명 오류
+                    </div>
                   </div>
               </div>
             </div>
@@ -88,8 +95,11 @@
                     <label for="price" th:text="#{label.item.price}">상품가격</label>
                   </div>
                   <div class="panel-body">
-                    <input type="number" step="500" class="form-control status-register-edit" th:field="*{price}" placeholder="가격을 입력하세요">
+                    <input type="number" step="500" class="form-control status-register-edit" th:field="*{price}" th:errorclass="field-error" placeholder="가격을 입력하세요">
                     <span class="status-read" th:text="${item.price}"></span>
+                    <div class="field-error" th:errors="*{price}">
+                      상품가격 오류
+                    </div>
                   </div>
               </div>
             </div>
@@ -99,8 +109,11 @@
                     <label for="quantity" th:text="#{label.item.quantity}">재고수량</label>
                   </div>
                   <div class="panel-body">
-                    <input type="number" step="100" class="form-control status-register-edit" th:field="*{quantity}" placeholder="수량을 입력하세요">
+                    <input type="number" step="100" class="form-control status-register-edit" th:field="*{quantity}" th:errorclass="field-error" placeholder="수량을 입력하세요">
                     <span class="status-read" th:text="${item.quantity}"></span>
+                    <div class="field-error" th:errors="*{quantity}">
+                      재고수량 오류
+                    </div>
                   </div>
               </div>
             </div>
@@ -138,9 +151,12 @@
                 <div class="panel-heading" th:text="#{label.item.regions}">배송 가능 지역</div>
                 <div class="panel-body">
                   <th:block th:each="region : ${regions}">
-                    <input type="checkbox" class="form-check-input extra-types" th:field="*{regions}" th:value="${region.key}">
+                    <input type="checkbox" class="form-check-input extra-types" th:field="*{regions}" th:value="${region.key}" th:errorclass="field-error">
                     <label th:for="${#ids.prev('regions')}" class="form-check-label" th:text="${region.value}" style="margin-right: 1rem;">서울</label>
                   </th:block>
+                  <div class="field-error" th:errors="*{regions}">
+                    배송 가능 지역 오류
+                  </div>
                 </div>
               </div>
             </div>  
@@ -151,10 +167,13 @@
               <div class="panel panel-danger">
                 <div class="panel-heading" th:text="#{label.item.delivery}">배송 방식</div>
                 <div class="panel-body">
-                  <select th:field="*{deliveryCode}" class="form-select extra-types">
+                  <select th:field="*{deliveryCode}" class="form-select extra-types" th:errorclass="field-error">
                     <option value="">== 배송 방식 선택 ==</option>
                     <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}" th:text="${deliveryCode.displayName}">FAST</option>
                   </select>
+                  <div class="field-error" th:errors="*{deliveryCode}">
+                    배송 방식 오류
+                  </div>
                 </div>
               </div>
             </div>
@@ -164,9 +183,12 @@
                 <div class="panel-body">
                   <div class="row">
                     <th:block th:each="type : ${itemTypes}">
-                      <input type="radio" th:field="*{itemType}" th:value="${type.name()}" class="form-check-input extra-types">
+                      <input type="radio" th:field="*{itemType}" th:value="${type.name()}" class="form-check-input extra-types" th:errorclass="field-error">
                       <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label" style="margin-right: 1rem;">노트북</label>
                     </th:block>
+                    <div class="field-error" th:errors="*{itemType}">
+                      상품 종류 오류
+                    </div>
                   </div>
                 </div>
               </div>

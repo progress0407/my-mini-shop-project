@@ -48,8 +48,8 @@ class ItemRepositoryTest {
 
         Item item = new Item(2L
                             , "레노버 놋북 빨콩 최고"
-                            , 780000L
-                            , 300L
+                            , 780000
+                            , 300
                             , "내용"
                             , true
                             , List.of("SEOUL")

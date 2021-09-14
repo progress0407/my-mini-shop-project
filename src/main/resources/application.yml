@@ -4,7 +4,11 @@ server:
 logging:
   level:
     swcho.mini.mvc: debug
-    org:
-      apache:
-        coyote:
-          http11=debug:
+#    org:
+#      apache:
+#        coyote:
+#          http11: debug
+
+spring:
+  messages:
+    basename: messages, errors

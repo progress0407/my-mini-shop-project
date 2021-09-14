@@ -37,7 +37,7 @@ public class ItemRepository {
         return addItem(item.getName(), item.getPrice(), item.getQuantity(), item.getDescription(), item.getOpen(), item.getRegions(), item.getItemType(), item.getDeliveryCode());
     }
 
-    public Item addItem(String name, Long price, Long quantity, String description, Boolean open, List<String> regions, ItemType itemType, String deliveryCode) {
+    public Item addItem(String name, Integer price, Integer quantity, String description, Boolean open, List<String> regions, ItemType itemType, String deliveryCode) {
         Item item = new Item(++sequence, name, price, quantity, description, open, regions, itemType, deliveryCode);
         store.put(sequence, item);
         log.info("item = {}", item);

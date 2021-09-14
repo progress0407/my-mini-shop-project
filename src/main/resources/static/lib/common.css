@@ -24,3 +24,16 @@ input[readonly] {
 /* body {
   background-color: pink;
 } */
+
+.field-error {
+  color: red;
+  font-weight: bold;
+}
+
+input.field-error {
+  border: 0.2rem solid red;
+}
+
+div.field-error {
+  margin-top: 1rem;
+}

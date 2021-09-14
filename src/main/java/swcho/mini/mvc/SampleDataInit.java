@@ -21,8 +21,8 @@ public class SampleDataInit {
     @PostConstruct
     public void init() {
         itemRepository.addItem("한성 노트북 : 올데이롱"
-                , 790000L
-                , 3000L
+                , 790000
+                , 3000
                 , "한성 컴퓨터에서 출시한 가성비 노트북.<br> 배터리가 굉장히 오래 갑니다."
                 , true
                 , List.of("SEOUL", "BUSAN")
@@ -30,8 +30,8 @@ public class SampleDataInit {
                 , "NORMAL");
 
         itemRepository.addItem("LG 노트북 : LG 그램"
-                , 1280000L
-                , 5000L
+                , 1280000
+                , 5000
                 , "LG 전자의 야심작 초경량 노트북. <br> 1KG이 안되어 그램이란 브랜드로 승부를 보고 있습니다."
                 , true
                 , List.of("SEOUL", "BUSAN", "JEJU")
@@ -39,8 +39,8 @@ public class SampleDataInit {
                 , "FAST");
 
         itemRepository.addItem("체리 키보드 : 토체티 & 듀가드"
-                , 130000L
-                , 2000L
+                , 130000
+                , 2000
                 , "두 회사의 콜라보로 만들어진 키보드. <br> 마감이 뛰어나며 체리식 축입니다. <br> 저소음 적축/ 적축 / 갈축을 제공합니다."
                 , true
                 , List.of("SEOUL")

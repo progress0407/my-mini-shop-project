@@ -4,23 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
-    th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
+        th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
     <link rel="stylesheet" href="../../static/lib/common.css"
-    th:href="@{/lib/common.css}">
-    <script src="jquery.min.js"
-    th:src="@{/lib/jquery.min.js}" ></script>
-    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"
-    th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.js}" ></script>
+        th:href="@{/lib/common.css}">
+    <script src="../../static/lib/jquery.min.js"
+        th:src="@{/lib/jquery.min.js}" ></script>
+    <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
+        th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.js}" ></script>
+    <script>
+        window.onload = function() {
+            let a = 1;
+            $("ul[class*='navbar-nav'] li").click(function(){
+                let clickedMenu = $(this).text();
+                $("ul[class*='navbar-nav'] li").each(function(idx, val){
+                    console.log(a++);
+                    if(clickedMenu === $(val).text()) {
+                        $(val).addClass("active");
+                    } else {
+                        $(val).removeClass("active");
+                    }
+                });
+            });
+        };
+    </script>
     <title>sw's shop</title>
 </head>
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/index">swcho's Shop</a>
+                <a class="navbar-brand" href="#" th:href="@{/index}">swcho's Shop</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/list">Item List</a></li>
+                <li><a href="#" th:href="@{/list}">Item List</a></li>
                 <!--
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -31,6 +47,9 @@
                 </li>
                 <li><a href="#">Page 2</a></li>
                 -->
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="#" th:href="@{/add}">Item Add</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

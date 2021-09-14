@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swcho.mini.mvc.domain.item.DeliveryCode;
 import swcho.mini.mvc.domain.item.Item;
 import swcho.mini.mvc.domain.item.ItemType;
 import swcho.mini.mvc.repository.ItemRepository;
+import swcho.mini.mvc.validation.ItemValidator;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -21,9 +25,14 @@ import java.util.Map;
 @Slf4j
 public class ItemController {
 
-    //    private final ItemService itemService;
     private final ItemRepository itemRepository;
+    private final ItemValidator itemValidator;
     public static final String layoutPath = "/layout";
+
+    @InitBinder
+    public void initValidator(WebDataBinder dataBinder) {
+        dataBinder.addValidators(itemValidator);
+    }
 
     @ModelAttribute("deliveryCodes")
     public List<DeliveryCode> deliveryCodes() {
@@ -53,10 +62,8 @@ public class ItemController {
     @GetMapping({"/", "/index"})
 
     public String index(Model model) {
-
         model.addAttribute("fragmentPath", "fragments/index");
         model.addAttribute("fragmentName", "index");
-
         return layoutPath;
     }
 
@@ -65,13 +72,9 @@ public class ItemController {
      */
     @GetMapping("/list")
     public String boardList(Model model) {
-
         viewFragmentModelAdd(model, "fragments/item-list", "item-list", null);
-
         List<Item> items = itemRepository.findAllItems();
-
         model.addAttribute("items", items);
-
         return layoutPath;
     }
 
@@ -81,37 +84,37 @@ public class ItemController {
     @GetMapping("/item/{itemId}")
     public String getItemDetail(@PathVariable("itemId") long id, Model model) {
         viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "R");
-
         model.addAttribute("item", itemRepository.findItemById(id));
-
-
         return layoutPath;
     }
-
+    
     /**
      * 추가 폼
      */
     @GetMapping("/add")
     public String addForm(Model model) {
         viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
-
         model.addAttribute("item", new Item()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
-
-        return "/layout";
+        return layoutPath;
     }
 
     /**
      * 추가
      */
     @PostMapping("/add")
-    public String add(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
+    public String add(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
+            return layoutPath;
+        }
+        
+        // 성공 로직
 
         log.debug("item = {}", item);
-
         Item savedItem = itemRepository.addItem(item);
-
         redirectAttributes.addAttribute("status", true);
-
         return "redirect:/item/" + savedItem.getId();
     }
 
@@ -120,9 +123,7 @@ public class ItemController {
      */
     @GetMapping("/delete/{itemId}")
     public String removeItemOne(@PathVariable("itemId") Long id, Model model) {
-
         itemRepository.deleteItemById(id);
-
         return "redirect:/list";
     }
 
@@ -136,7 +137,6 @@ public class ItemController {
 
         viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "U");
         model.addAttribute("item", itemRepository.findItemById(id));
-
         log.debug("item = {}", itemRepository.findItemById(id));
 
         return layoutPath;
@@ -146,13 +146,11 @@ public class ItemController {
      * 수정
      */
     @PostMapping("/update/{itemId}")
-    public String update(@PathVariable("itemId") Long id, @ModelAttribute Item item) {
+    public String update(@Validated @PathVariable("itemId") Long id, @ModelAttribute Item item) {
         System.out.println("ItemController.update");
         log.debug("id = {}", id);
         log.debug("item = {}", item);
-
         itemRepository.updateItem(item);
-
         return "redirect:/item/" + item.getId();
     }
 
