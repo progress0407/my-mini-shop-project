@@ -9,10 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import swcho.mini.mvc.domain.item.DeliveryCode;
-import swcho.mini.mvc.domain.item.Item;
-import swcho.mini.mvc.domain.item.ItemType;
+import swcho.mini.mvc.domain.item.*;
 import swcho.mini.mvc.repository.ItemRepository;
+import swcho.mini.mvc.util.ConvertingVo;
 import swcho.mini.mvc.validation.ItemValidator;
 
 import java.util.LinkedHashMap;
@@ -27,6 +26,8 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final ItemValidator itemValidator;
+    private final ConvertingVo convertingVo;
+
     public static final String layoutPath = "/layout";
 
     @InitBinder
@@ -94,7 +95,7 @@ public class ItemController {
     @GetMapping("/add")
     public String addForm(Model model) {
         viewFragmentModelAdd(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
-        model.addAttribute("item", new Item()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
+        model.addAttribute("item", new ItemSaveForm()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
         return layoutPath;
     }
 
@@ -102,7 +103,7 @@ public class ItemController {
      * 추가
      */
     @PostMapping("/add")
-    public String add(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String add(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -112,11 +113,14 @@ public class ItemController {
         
         // 성공 로직
 
-        log.debug("item = {}", item);
+        log.debug("form = {}", form);
+        Item item = convertingVo.convertSaveFormToItem(form);
         Item savedItem = itemRepository.addItem(item);
         redirectAttributes.addAttribute("status", true);
         return "redirect:/item/" + savedItem.getId();
     }
+
+
 
     /**
      * 리스트에서 삭제
@@ -146,12 +150,14 @@ public class ItemController {
      * 수정
      */
     @PostMapping("/update/{itemId}")
-    public String update(@Validated @PathVariable("itemId") Long id, @ModelAttribute Item item) {
-        System.out.println("ItemController.update");
+    public String update(@Validated @PathVariable("itemId") Long id, @ModelAttribute ItemUpdateForm form) {
         log.debug("id = {}", id);
-        log.debug("item = {}", item);
+        log.debug("item = {}", form);
+
+
+        Item item = convertingVo.convertUpdateFormToItem(form);
         itemRepository.updateItem(item);
-        return "redirect:/item/" + item.getId();
+        return "redirect:/item/{itemId}";
     }
 
     private void viewFragmentModelAdd(Model model, String fragmentPath, String fragmentName, String dmlType) {

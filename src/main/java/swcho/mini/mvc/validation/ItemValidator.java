@@ -1,25 +1,49 @@
 package swcho.mini.mvc.validation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import swcho.mini.mvc.domain.item.Item;
+import swcho.mini.mvc.domain.item.ItemSaveForm;
+import swcho.mini.mvc.domain.item.ItemUpdateForm;
+import swcho.mini.mvc.util.ConvertingVo;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class ItemValidator implements Validator {
 
+    private final ConvertingVo convertingVo;
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Item.class.isAssignableFrom(clazz);
+        if(ItemSaveForm.class.isAssignableFrom(clazz)) {
+            return true;
+        }
+        else if (ItemUpdateForm.class.isAssignableFrom(clazz)) {
+            return true;
+        }
+        else if (Item.class.isAssignableFrom(clazz)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        Item item = (Item) target;
+//        Item item = (Item) target;
+        Item item = null;
+        if (target instanceof ItemSaveForm) {
+            item = convertingVo.convertSaveFormToItem((ItemSaveForm) target);
+        } else if (target instanceof ItemUpdateForm) {
+            item = convertingVo.convertUpdateFormToItem((ItemUpdateForm) target);
+        }
+
         log.debug("item to validate = {}", item);
 
 //        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"name", "required");
@@ -34,8 +58,9 @@ public class ItemValidator implements Validator {
 
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
-            if (resultPrice < 100000) {
-                errors.reject("totalPriceMin", new Object[]{100000, resultPrice}, null);
+            int minPrice = 200000;
+            if (resultPrice < minPrice) {
+                errors.reject("totalPriceMin", new Object[]{minPrice, resultPrice}, null);
             }
         }
 
