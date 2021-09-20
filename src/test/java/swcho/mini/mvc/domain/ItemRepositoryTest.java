@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import swcho.mini.mvc.SampleDataInit;
 import swcho.mini.mvc.domain.item.Item;
-import swcho.mini.mvc.repository.ItemRepository;
+import swcho.mini.mvc.domain.item.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
 
 import java.util.List;

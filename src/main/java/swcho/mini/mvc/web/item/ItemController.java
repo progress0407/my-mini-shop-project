@@ -1,4 +1,4 @@
-package swcho.mini.mvc.controller;
+package swcho.mini.mvc.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swcho.mini.mvc.domain.item.*;
-import swcho.mini.mvc.repository.ItemRepository;
-import swcho.mini.mvc.util.ConvertingVo;
-import swcho.mini.mvc.validation.ItemValidator;
+import swcho.mini.mvc.domain.item.ItemRepository;
+import swcho.mini.mvc.domain.util.ConvertingVo;
+import swcho.mini.mvc.domain.item.ItemValidator;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -63,8 +63,9 @@ public class ItemController {
     @GetMapping({"/", "/index"})
 
     public String index(Model model) {
-        model.addAttribute("fragmentPath", "fragments/index");
-        model.addAttribute("fragmentName", "index");
+        viewFragmentModelAdd(model, "fragments/index", "index", null);
+        List<Item> items = itemRepository.findAllItems();
+        model.addAttribute("items", items);
         return layoutPath;
     }
 

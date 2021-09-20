@@ -1,4 +1,4 @@
-package swcho.mini.mvc.repository;
+package swcho.mini.mvc.domain.item;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ItemRepository {
 
     private static Map<Long, Item> store = new ConcurrentHashMap<>();
-    private static long sequence = 1L;
+    private static long sequence = 0L;
 
     /**
      * 추가
@@ -46,7 +46,6 @@ public class ItemRepository {
 
     /**
      * 리스트 조회
-     * @return
      */
     public List<Item> findAllItems() {
         return store.values().stream().collect(Collectors.toList());
@@ -54,8 +53,6 @@ public class ItemRepository {
 
     /**
      * 상세 조회
-     * @param id
-     * @return
      */
     public Item findItemById(long id) {
         Item findItem = store.get(id);
@@ -69,8 +66,6 @@ public class ItemRepository {
 
     /**
      * 변경
-     * @param item
-     * @return
      */
     public Item updateItem(Item item) {
         store.replace(item.getId(), item);

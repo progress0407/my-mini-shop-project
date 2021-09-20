@@ -43,7 +43,18 @@
   <nav th:replace="${nav}"></nav>
   <div class="container" th:fragment="item-detail-add-update">
     <a href="/list" class="btn btn-primary">목록으로</a>
-    <div th:if="${param.status}" th:text="#{page.addComplete}">상품 저장 완료 ! </div>
+    <div th:if="${param.status}" th:text="#{page.addComplete}" class="well well-lg"
+      style="background-color: #e6ee9c;
+             margin-top: 2rem; 
+             font-size: 1.8rem; 
+             font-weight: bold; 
+             color: black; 
+             text-shadow: white 0.2em 0.2em 0.2em;
+             width: 30vw;
+             ">
+      <span class="glyphicon glyphicon-ok" style="margin-right: 3rem; "></span>
+      상품 저장 완료 ! 
+    </div>
     <hr>
     <div class="panel panel-warning">
       <div class="panel-heading">

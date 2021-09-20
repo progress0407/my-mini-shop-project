@@ -1,4 +1,4 @@
-package swcho.mini.mvc.util;
+package swcho.mini.mvc.domain.util;
 
 import org.springframework.stereotype.Component;
 import swcho.mini.mvc.domain.item.Item;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="item-list (title, nav, link, script)">
+<head>
+    <meta charset="UTF-8">
+    <!-- thymeleaf property start -->
+    <link th:replace="${link}">
+    <script th:replace=${script}></script>
+    <!-- thymeleaf property end -->
+    <!--/*-->
+    <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/lib/common.css">
+    <script src="../../static/lib/jquery.min.js"></script>
+    <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <!--*/-->
+    <style>
+    </style>
+    <title th:replace="${title}">#</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <form th:object="#{user}" class="form-horizontal" action="#" th:action="">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="id">ID:</label>
+          <div class="col-sm-4">
+            <input type="email" th:field="id" class="form-control" placeholder="Enter ID">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="password">Password:</label>
+          <div class="col-sm-4">          
+            <input type="password" th:field="password" class="form-control" placeholder="Enter password">
+          </div>
+        </div>
+        <div class="form-group">        
+          <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+              <label><input type="checkbox" name="remember">Remember me</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">        
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </form>    
+    </div>
+  </div>
+</body>
+</html>

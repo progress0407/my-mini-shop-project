@@ -48,6 +48,4 @@ public class ItemUpdateForm {
         this.price = price;
         this.quantity = quantity;
     }
-
-
 }

@@ -1,4 +1,4 @@
-package swcho.mini.mvc.service;
+package swcho.mini.mvc.domain.item;
 
 //@Service
 //@RequiredArgsConstructor
