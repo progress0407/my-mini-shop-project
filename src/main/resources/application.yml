@@ -1,5 +1,6 @@
 server:
   port: 8081
+  servlet.session.tracking-modes: cookie # JESSIONID URL 전달 방식 끄기
 
 logging:
   level:

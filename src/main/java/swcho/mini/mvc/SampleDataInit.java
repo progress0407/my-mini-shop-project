@@ -25,18 +25,15 @@ public class SampleDataInit {
 
     @PostConstruct
     public void init() {
-        System.out.println("SampleDataInit.init");
         createItemSampleData();
         createMemberSampleData();
     }
 
     private void createMemberSampleData() {
-        System.out.println("SampleDataInit.createMemberSampleData");
         memberRepository.createMember(new Member("admin", "1234", "관리자"));
     }
 
     private void createItemSampleData() {
-        System.out.println("SampleDataInit.createItemSampleData");
         itemRepository.addItem("한성 노트북 : 올데이롱"
                 , 790000
                 , 3000

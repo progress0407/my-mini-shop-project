@@ -37,8 +37,15 @@
             <ul class="nav navbar-nav">
                 <li><a href="#" th:href="@{/item/add}">Item Add</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" th:href="@{/member/log-out}" th:text="|${member.name} 님 안녕하세요 !|"></a></li>
+            <ul class="nav navbar-nav">
+                <span th:text="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')?.name}"></span>
+            </ul>
+            <ul th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')} == null" class="nav navbar-nav navbar-right">
+                <li><a href="#" th:href="@{/member/log-in}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="#" th:href="@{/member/sign-up}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            </ul>
+            <ul th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')} != null" class="nav navbar-nav navbar-right">
+                <li><a href="#" th:href="@{/member/log-out}" th:text="|${member?.name} 님 안녕하세요 !|"></a></li>
                 <li><a href="#" th:href="@{/member/log-out}"><span class="glyphicon glyphicon-log-oud"></span> Log out</a></li>
             </ul>
         </div>

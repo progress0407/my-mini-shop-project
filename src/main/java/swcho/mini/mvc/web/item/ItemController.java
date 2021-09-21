@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static swcho.mini.mvc.web.util.PathConst.LAYOUT_PATH_BEFORE_LOG_IN;
+import static swcho.mini.mvc.web.util.Const.LAYOUT_PATH;
 
 @Controller
 @RequiredArgsConstructor
@@ -69,7 +69,7 @@ public class ItemController {
         ViewFragment.setModelParameters(model, "fragments/item/item-list", "item-list", null);
         List<Item> items = itemRepository.findAllItems();
         model.addAttribute("items", items);
-        return LAYOUT_PATH_BEFORE_LOG_IN;
+        return LAYOUT_PATH;
     }
 
     /**
@@ -79,7 +79,7 @@ public class ItemController {
     public String getItemDetail(@PathVariable("itemId") long id, Model model) {
         ViewFragment.setModelParameters(model, "fragments/item/item-detail-add-update", "item-detail-add-update", "R");
         model.addAttribute("item", itemRepository.findItemById(id));
-        return LAYOUT_PATH_BEFORE_LOG_IN;
+        return LAYOUT_PATH;
     }
     
     /**
@@ -89,7 +89,7 @@ public class ItemController {
     public String addForm(Model model) {
         ViewFragment.setModelParameters(model, "fragments/item/item-detail-add-update", "item-detail-add-update", "C");
         model.addAttribute("item", new ItemSaveForm()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
-        return LAYOUT_PATH_BEFORE_LOG_IN;
+        return LAYOUT_PATH;
     }
 
     /**
@@ -101,7 +101,7 @@ public class ItemController {
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             ViewFragment.setModelParameters(model, "fragments/item/item-detail-add-update", "item-detail-add-update", "C");
-            return LAYOUT_PATH_BEFORE_LOG_IN;
+            return LAYOUT_PATH;
         }
         
         // 성공 로직
@@ -136,7 +136,7 @@ public class ItemController {
         model.addAttribute("item", itemRepository.findItemById(id));
         log.debug("item = {}", itemRepository.findItemById(id));
 
-        return LAYOUT_PATH_BEFORE_LOG_IN;
+        return LAYOUT_PATH;
     }
 
     /**

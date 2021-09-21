@@ -10,7 +10,7 @@ import swcho.mini.mvc.web.util.ViewFragment;
 
 import java.util.List;
 
-import static swcho.mini.mvc.web.util.PathConst.LAYOUT_PATH_BEFORE_LOG_IN;
+import static swcho.mini.mvc.web.util.Const.LAYOUT_PATH;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +31,6 @@ public class HomeController {
         ViewFragment.setModelParameters(model, "fragments/index", "index", null);
         List<Item> items = itemRepository.findAllItems();
         model.addAttribute("items", items);
-        return LAYOUT_PATH_BEFORE_LOG_IN;
+        return LAYOUT_PATH;
     }
 }

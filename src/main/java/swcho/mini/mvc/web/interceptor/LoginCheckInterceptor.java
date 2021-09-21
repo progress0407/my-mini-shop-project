@@ -3,34 +3,45 @@ package swcho.mini.mvc.web.interceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import swcho.mini.mvc.web.util.SessionConst;
+import swcho.mini.mvc.domain.member.Member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static swcho.mini.mvc.web.util.Const.*;
+
+/**
+ * 로그인 인증 체크
+ */
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        HttpSession session = request.getSession();
-        StringBuffer requestURL = request.getRequestURL();
-        if (session == null || session.getAttribute(SessionConst.LOGIN_SESSION_NAME) == null) {
-            response.sendRedirect("/member/log-in?redirectURL=" + requestURL);
+
+        HttpSession session = request.getSession(false);
+
+        String requestURI = request.getRequestURI();
+
+        if (session == null || session.getAttribute(LOGIN_SESSION_NAME) == null) {
+            response.sendRedirect("/member/log-in?redirectURI=" + requestURI);
             return false;
+        }
+
+        Member member = (Member) session.getAttribute(LOGIN_SESSION_NAME);
+        if (member != null) {
+            log.info("Session Member = {}", member.getName());
         }
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("modelAndView = {}", modelAndView);
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        if (ex != null) {
-            log.error("ex = ", ex);
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute(LOGIN_SESSION_NAME);
+        if (member != null) {
+            modelAndView.addObject("member", member);
         }
     }
 }
