@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import swcho.mini.mvc.domain.item.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
+import swcho.mini.mvc.domain.member.Member;
+import swcho.mini.mvc.domain.member.MemberRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class SampleDataInit {
 
     private final ItemRepository itemRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * 샘플 데이터 추가
@@ -20,6 +23,15 @@ public class SampleDataInit {
 
     @PostConstruct
     public void init() {
+        createItemSampleData();
+        createMemberSampleData();
+    }
+
+    private void createMemberSampleData() {
+        memberRepository.createMember(new Member("admin", "qwer", "관리자"));
+    }
+
+    private void createItemSampleData() {
         itemRepository.addItem("한성 노트북 : 올데이롱"
                 , 790000
                 , 3000
@@ -64,7 +76,7 @@ public class SampleDataInit {
                 , List.of("SEOUL", "BUSAN")
                 , ItemType.KEYBOARD
                 , "FAST");
-        
-        
     }
+
+
 }

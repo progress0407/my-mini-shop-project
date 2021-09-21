@@ -1,9 +1,12 @@
 package swcho.mini.mvc.domain.member;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class MemberRepository {
 
     /**

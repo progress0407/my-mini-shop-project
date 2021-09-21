@@ -1,10 +1,11 @@
-package swcho.mini.mvc.domain.item;
+package swcho.mini.mvc.web.item;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import swcho.mini.mvc.domain.item.Item;
 import swcho.mini.mvc.domain.util.ConvertingVo;
 
 @Slf4j
