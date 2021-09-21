@@ -54,10 +54,6 @@ public class MemberController {
             return LAYOUT_PATH;
         }
 
-//        model.addAttribute("member", foundMember);
-
-//        ViewFragment.setRedirectParameters(redirectAttributes, "fragments/index", "index", null);
-
         HttpSession session = request.getSession(true);
         session.setAttribute(LOGIN_SESSION_NAME, foundMember);
 //        session.setMaxInactiveInterval(1800); // 기본 30분
