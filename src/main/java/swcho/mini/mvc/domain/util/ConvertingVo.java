@@ -2,8 +2,8 @@ package swcho.mini.mvc.domain.util;
 
 import org.springframework.stereotype.Component;
 import swcho.mini.mvc.domain.item.Item;
-import swcho.mini.mvc.domain.item.ItemSaveForm;
-import swcho.mini.mvc.domain.item.ItemUpdateForm;
+import swcho.mini.mvc.web.item.ItemSaveForm;
+import swcho.mini.mvc.web.item.ItemUpdateForm;
 
 @Component
 public class ConvertingVo {

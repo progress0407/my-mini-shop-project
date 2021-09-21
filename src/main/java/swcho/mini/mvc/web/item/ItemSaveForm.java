@@ -1,9 +1,10 @@
-package swcho.mini.mvc.domain.item;
+package swcho.mini.mvc.web.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
+import swcho.mini.mvc.domain.item.ItemType;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;

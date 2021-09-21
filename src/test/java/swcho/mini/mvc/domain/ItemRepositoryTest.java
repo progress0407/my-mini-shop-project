@@ -7,6 +7,7 @@ import swcho.mini.mvc.SampleDataInit;
 import swcho.mini.mvc.domain.item.Item;
 import swcho.mini.mvc.domain.item.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
+import swcho.mini.mvc.domain.member.MemberRepository;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ class ItemRepositoryTest {
 
 //    @Autowired
     ItemRepository itemRepository = new ItemRepository();
-    SampleDataInit sampleDataInit = new SampleDataInit(itemRepository);
+    MemberRepository memberRepository = new MemberRepository();
+    SampleDataInit sampleDataInit = new SampleDataInit(itemRepository, memberRepository);
 
     @BeforeEach
     public void 모두_비우기() {
