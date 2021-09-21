@@ -25,6 +25,9 @@ public class MemberController {
 
     private final MemberRepository memberRepository;
 
+    /**
+     * 로그인 폼
+     */
     @GetMapping("/log-in")
     public String loginForm(Model model) {
         ViewFragment.setModelParameters(model, "fragments/member/log-in", "log-in", null);
@@ -32,6 +35,9 @@ public class MemberController {
         return LAYOUT_PATH;
     }
 
+    /**
+     * 로그인
+     */
     @PostMapping("/log-in")
     public String login(@ModelAttribute Member member, BindingResult bindingResult,
                         RedirectAttributes redirectAttributes,
@@ -61,12 +67,38 @@ public class MemberController {
         return "redirect:" + redirectURI;
     }
 
+    /**
+     * 로그 아웃
+     */
+    @GetMapping("/log-out")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/index";
+    }
+
+    /**
+     * 회원 가입
+     */
     @GetMapping("/sign-up")
     public String signup(@ModelAttribute Member member, BindingResult bindingResult) {
         if(!memberRepository.createMember(member)) {
             bindingResult.reject("AlreadyExist", "이미 존재하는 회원입니다.");
             return LAYOUT_PATH;
         }
+        return LAYOUT_PATH;
+    }
+
+    /**
+     * 회원 상세
+     */
+    @GetMapping("/{memberId}")
+    public String detail(@PathVariable String memberId, Model model) {
+        Member member = memberRepository.findById(memberId);
+        ViewFragment.setModelParameters(model, "fragments/index", "index", null);
+        model.addAttribute("member", member);
         return LAYOUT_PATH;
     }
 }
