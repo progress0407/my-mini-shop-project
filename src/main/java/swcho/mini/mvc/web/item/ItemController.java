@@ -65,7 +65,7 @@ public class ItemController {
     @GetMapping({"/", "/index"})
 
     public String index(Model model) {
-        ViewFragment.setParameters(model, "fragments/index", "index", null);
+        ViewFragment.setModelParameters(model, "fragments/index", "index", null);
         List<Item> items = itemRepository.findAllItems();
         model.addAttribute("items", items);
         return LAYOUT_PATH_BEFORE_LOG_IN;
@@ -76,7 +76,7 @@ public class ItemController {
      */
     @GetMapping("/list")
     public String boardList(Model model) {
-        ViewFragment.setParameters(model, "fragments/item-list", "item-list", null);
+        ViewFragment.setModelParameters(model, "fragments/item-list", "item-list", null);
         List<Item> items = itemRepository.findAllItems();
         model.addAttribute("items", items);
         return LAYOUT_PATH_BEFORE_LOG_IN;
@@ -87,7 +87,7 @@ public class ItemController {
      */
     @GetMapping("/item/{itemId}")
     public String getItemDetail(@PathVariable("itemId") long id, Model model) {
-        ViewFragment.setParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "R");
+        ViewFragment.setModelParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "R");
         model.addAttribute("item", itemRepository.findItemById(id));
         return LAYOUT_PATH_BEFORE_LOG_IN;
     }
@@ -97,7 +97,7 @@ public class ItemController {
      */
     @GetMapping("/add")
     public String addForm(Model model) {
-        ViewFragment.setParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
+        ViewFragment.setModelParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
         model.addAttribute("item", new ItemSaveForm()); // tymeleaf 에서 렌더링하려고 하는데 오류나기에.. 빈 아이템 전송
         return LAYOUT_PATH_BEFORE_LOG_IN;
     }
@@ -110,7 +110,7 @@ public class ItemController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            ViewFragment.setParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
+            ViewFragment.setModelParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "C");
             return LAYOUT_PATH_BEFORE_LOG_IN;
         }
         
@@ -142,7 +142,7 @@ public class ItemController {
         log.debug("ItemController.updateForm");
         log.debug("id = {}", id);
 
-        ViewFragment.setParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "U");
+        ViewFragment.setModelParameters(model, "fragments/item-detail-add-update", "item-detail-add-update", "U");
         model.addAttribute("item", itemRepository.findItemById(id));
         log.debug("item = {}", itemRepository.findItemById(id));
 

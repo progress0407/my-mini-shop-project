@@ -11,22 +11,8 @@
         th:src="@{/lib/jquery.min.js}" ></script>
     <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
         th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.js}" ></script>
-    <script>
-        window.onload = function() {
-            let a = 1;
-            $("ul[class*='navbar-nav'] li").click(function(){
-                let clickedMenu = $(this).text();
-                $("ul[class*='navbar-nav'] li").each(function(idx, val){
-                    console.log(a++);
-                    if(clickedMenu === $(val).text()) {
-                        $(val).addClass("active");
-                    } else {
-                        $(val).removeClass("active");
-                    }
-                });
-            });
-        };
-    </script>
+    <script src="../../static/lib/common.js"
+        th:src="@{/lib/common.js}" ></script>
     <title>sw's shop</title>
 </head>
 <body>

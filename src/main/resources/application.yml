@@ -4,6 +4,7 @@ server:
 logging:
   level:
     swcho.mini.mvc: debug
+# HTTP요청 보기
 #    org:
 #      apache:
 #        coyote:
@@ -12,3 +13,8 @@ logging:
 spring:
   messages:
     basename: messages, errors
+  # 타임리프 새로고침 없이 반영하기
+  thymeleaf:
+    cache: false
+
+
