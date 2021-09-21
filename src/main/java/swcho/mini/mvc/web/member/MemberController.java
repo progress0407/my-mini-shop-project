@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swcho.mini.mvc.domain.member.Member;
 import swcho.mini.mvc.domain.member.MemberRepository;
@@ -26,13 +23,16 @@ public class MemberController {
 
     @GetMapping("/log-in")
     public String loginForm(Model model) {
-        ViewFragment.setModelParameters(model, "fragments/log-in", "log-in", null);
+        ViewFragment.setModelParameters(model, "fragments/member/log-in", "log-in", null);
         model.addAttribute("member", new Member());
         return LAYOUT_PATH_BEFORE_LOG_IN;
     }
 
     @PostMapping("/log-in")
-    public String login(@ModelAttribute Member member, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String login(@ModelAttribute Member member, BindingResult bindingResult,
+                        RedirectAttributes redirectAttributes,
+                        Model model,
+                        @RequestParam(defaultValue = "/index") String redirectURL) {
 
         Member foundMember = memberRepository.findById(member.getId());
         if(foundMember == null) {
@@ -45,7 +45,7 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             // 리다이렉트시 바인딩 에러에 대한 내용이 지워진다.. 재요청이기 때문에
 //            return "redirect:/member/log-in";
-            ViewFragment.setModelParameters(model, "fragments/log-in", "log-in", null);
+            ViewFragment.setModelParameters(model, "fragments/member/log-in", "log-in", null);
             return LAYOUT_PATH_BEFORE_LOG_IN;
         }
 
@@ -55,7 +55,7 @@ public class MemberController {
 //        ViewFragment.setModelParameters(model, "fragments/index", "index", null);
         ViewFragment.setRedirectParameters(redirectAttributes, "fragments/index", "index", null);
 //        return LAYOUT_PATH_AFTER_LOG_IN;
-        return "redirect:/index";
+        return "redirect:" + redirectURL;
     }
 
     @GetMapping("/sign-up")

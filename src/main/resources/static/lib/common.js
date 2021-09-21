@@ -1,10 +1,10 @@
-$.getScript("jquery.min.js", function() {
-  alert("Script loaded but not necessarily executed.");
-});
+// $.getScript("jquery.min.js", function() {
+//   alert("Script loaded but not necessarily executed.");
+// });
 
-$.getScript("bootstrap-3.3.7-dist/js/bootstrap.min.js", function() {
-  alert("Script loaded but not necessarily executed.");
-});
+// $.getScript("bootstrap-3.3.7-dist/js/bootstrap.min.js", function() {
+//   alert("Script loaded but not necessarily executed.");
+// });
 
 window.onload = function() {
   // 글로벌 에러 색깔 입히기
