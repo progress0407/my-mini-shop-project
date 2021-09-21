@@ -1,6 +1,7 @@
 package swcho.mini.mvc;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import swcho.mini.mvc.domain.item.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
@@ -10,6 +11,7 @@ import swcho.mini.mvc.domain.member.MemberRepository;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class SampleDataInit {
@@ -23,15 +25,18 @@ public class SampleDataInit {
 
     @PostConstruct
     public void init() {
+        System.out.println("SampleDataInit.init");
         createItemSampleData();
         createMemberSampleData();
     }
 
     private void createMemberSampleData() {
-        memberRepository.createMember(new Member("admin", "qwer", "관리자"));
+        System.out.println("SampleDataInit.createMemberSampleData");
+        memberRepository.createMember(new Member("admin", "1234", "관리자"));
     }
 
     private void createItemSampleData() {
+        System.out.println("SampleDataInit.createItemSampleData");
         itemRepository.addItem("한성 노트북 : 올데이롱"
                 , 790000
                 , 3000

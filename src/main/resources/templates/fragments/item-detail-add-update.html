@@ -14,7 +14,8 @@
   <!--*/-->
   <script th:inline="javascript">
     // $(window).load(function() {
-    $(document).ready(function() {
+    // $(document).ready(function() {
+    window.onload = function() {
       let dmlType = /*[[${dmlType}]]*/  "no-data";
       if(dmlType === "C" || dmlType === "U") {
         $(".status-read").remove();
@@ -30,7 +31,7 @@
         // $("input").prop("readonly", true);
         // $("textarea").prop("readonly", true);
       }
-    });
+    };
   </script>
   <style>
     form div.row {

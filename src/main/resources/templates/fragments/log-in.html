@@ -12,19 +12,29 @@
     <script src="../../static/lib/jquery.min.js"></script>
     <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <!--*/-->
-    <style>
-    </style>
+    <script>
+      window.onload = function() {
+        $(".field-error").addClass("alert alert-warning");
+      };
+    </script>
     <title th:replace="${title}">#</title>
 </head>
 <body>
   <nav th:replace="${nav}"></nav>
   <div class="container">
+
     <div class="row">
-      <form th:object="${member}" class="form-horizontal" action="#" th:action>
+
+      <form th:object="${member}" class="form-horizontal" action="#" th:action method="POST">
+        
+        <div th:if="${#fields.hasGlobalErrors()}">
+          <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+        </div>
+
         <div class="form-group">
           <label class="control-label col-sm-2" for="id">ID:</label>
           <div class="col-sm-4">
-            <input type="email" th:field="*{id}" class="form-control" placeholder="Enter ID">
+            <input type="text" th:field="*{id}" class="form-control" placeholder="Enter ID">
           </div>
         </div>
         <div class="form-group">

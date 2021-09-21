@@ -13,13 +13,13 @@
     <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <!--*/-->
     <script th:inline="javascript">
+      
       let items = [[${items}]];
 
       // let items = [{id: 1, name : "한성 노트북"}, {id: 2, name: "레노버 노트북"}, {id: 3, name: "엠스톤 키보드"}];
       
-      $(function() {
-        
-          const MINIMUM_SEARCH_LENGTH = 2;
+      window.onload = function() {
+        const MINIMUM_SEARCH_LENGTH = 2;
           const BACKSPACE_KEYCODE = 8;
           const ARROW_UP = 38;
           const ARROW_DOWN = 40;
@@ -106,7 +106,7 @@
               }
 
           });
-      });
+      };
     </script>
     <style>
       #search-list li:hover ,

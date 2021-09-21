@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{${fragmentPath} :: ${fragmentName} ( ~{::title}, ~{::nav}, ~{::link}, ~{::script} ) }">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
+        th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/lib/common.css"
+        th:href="@{/lib/common.css}">
+    <script src="../../static/lib/jquery.min.js"
+        th:src="@{/lib/jquery.min.js}" ></script>
+    <script src="../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
+        th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.js}" ></script>
+    <script>
+        window.onload = function() {
+            let a = 1;
+            $("ul[class*='navbar-nav'] li").click(function(){
+                let clickedMenu = $(this).text();
+                $("ul[class*='navbar-nav'] li").each(function(idx, val){
+                    console.log(a++);
+                    if(clickedMenu === $(val).text()) {
+                        $(val).addClass("active");
+                    } else {
+                        $(val).removeClass("active");
+                    }
+                });
+            });
+        };
+    </script>
+    <title>sw's shop</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" th:href="@{/index}">swcho's Shop</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="#" th:href="@{/list}">Item List</a></li>
+                <!--
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Page 1-1</a></li>
+                        <li><a href="#">Page 1-2</a></li>
+                        <li><a href="#">Page 1-3</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Page 2</a></li>
+                -->
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="#" th:href="@{/add}">Item Add</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" th:href="@{/member/log-out}" th:text="|${member.name} 님 안녕하세요 !|"></a></li>
+                <li><a href="#" th:href="@{/member/log-out}"><span class="glyphicon glyphicon-log-oud"></span> Log out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--/*
+    <div class="container" th:replace="~{${fragmentPath} :: ${fragmentName}}">    </div>
+    */-->
+
+</body>
+</html>
