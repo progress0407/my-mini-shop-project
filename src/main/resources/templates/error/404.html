@@ -1,17 +1,36 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="log-in (title, nav, link, script)">
 <head>
-  <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <!-- thymeleaf property start -->
+    <link th:replace="${link}">
+    <script th:replace=${script}></script>
+    <!-- thymeleaf property end -->
+    <!--/*-->
+    <link rel="stylesheet" href="../../../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../static/lib/common.css">
+    <script src="../../../static/lib/jquery.min.js"
+        th:src="@{/lib/jquery.min.js}" ></script>
+    <script src="../../../static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
+        th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.js}" ></script>
+    <script src="../../../static/lib/common.js"></script>
+    <!--*/-->
+    <title th:replace="${title}">#</title>
 </head>
 <body>
-<div class="container" style="max-width: 600px">
-  <div class="py-5 text-center">
-    <h2>404 오류 화면 스프링 부트 제공</h2>
-  </div>
-  <div>
-    <p>오류 화면 입니다.</p>
-  </div>
-  <hr class="my-4">
+  <nav th:replace="${nav}"></nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <div style="font-size: 8rem; color: orangered; ">404</div></div>
+      <div class="col-md-6">
+        <div style="font-size: 4rem; color: orangered; padding-top: 1.5rem;">
+          페이지가 존재하지 않습니다
+          <br>
+          관리자에게 문의 주세요 !
+        </div>
+      </div>
+    </div>
 </div> <!-- /container -->
 </body>
 </html>
