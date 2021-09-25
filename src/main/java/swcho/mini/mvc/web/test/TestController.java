@@ -25,14 +25,14 @@ public class TestController {
         throw new RuntimeException("[Error Page] Runtime Exception");
     }
 
+    @GetMapping("/error-throw/4xx")
+    public void ex400(HttpServletResponse response) throws IOException {
+        response.sendError(400, "[Error Page] 400");
+    }
+
     @GetMapping("/error-throw/404")
     public void ex404(HttpServletResponse response) throws IOException {
         response.sendError(404, "[Error Page] 404");
-    }
-
-    @GetMapping("/error-throw/400")
-    public void ex400(HttpServletResponse response) throws IOException {
-        response.sendError(400, "[Error Page] 400");
     }
 
     @GetMapping("/error-throw/500")

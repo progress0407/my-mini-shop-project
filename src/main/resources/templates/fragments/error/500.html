@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="log-in (title, nav, link, script)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="error-500 (title, nav, link, script)">
 <head>
     <meta charset="UTF-8">
     <!-- thymeleaf property start -->
@@ -17,19 +17,39 @@
     <!--*/-->
     <title th:replace="${title}">#</title>
 </head>
-<body>
+<body style="color: orangered">
   <nav th:replace="${nav}"></nav>
   <div class="container">
     <div class="row">
       <div class="col-md-2">
-        <div style="font-size: 8rem; color: orangered; ">404</div></div>
+        <div style="font-size: 8rem; ">500</div></div>
       <div class="col-md-6">
-        <div style="font-size: 4rem; color: orangered; padding-top: 1.5rem;">
-          클라이언트 에러입니다 
+        <div style="font-size: 4rem; padding-top: 1.5rem;">
+          서버 에러
           <br>
           관리자에게 문의 주세요 !
         </div>
       </div>
+    </div> <!--row-->
+    <hr>
+    <div class="row">
+      <a href="#" th:href="|@{${previousPage}}|" class="btn btn-warning">홈으로 돌아가기</a>
+    </div>
+    <hr>
+    <div class="row">
+      <ul>
+        <li style="font-size: 2rem;">오류 정보</li>
+        <ul style="font-size: 2rem;" >
+          <li th:text="|timestamp: ${timestamp}|"></li>
+          <li th:text="|path: ${path}|"></li>
+          <li th:text="|status: ${status}|"></li>
+          <li th:text="|message: ${message}|"></li>
+          <li th:text="|error: ${error}|"></li>
+          <li th:text="|exception: ${exception}|"></li>
+          <li th:text="|errors: ${errors}|"></li>
+          <li th:text="|trace: ${trace}|"></li>
+        </ul>
+      </ul>
     </div>
 </div> <!-- /container -->
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="log-in (title, nav, link, script)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="error-404 (title, nav, link, script)">
 <head>
     <meta charset="UTF-8">
     <!-- thymeleaf property start -->
@@ -30,6 +30,10 @@
           관리자에게 문의 주세요 !
         </div>
       </div>
+    </div> <!--row-->
+    <hr>
+    <div class="row">
+      <a href="#" th:href="|@{${previousPage}}|" class="btn btn-warning">홈으로 돌아가기</a>
     </div>
 </div> <!-- /container -->
 </body>

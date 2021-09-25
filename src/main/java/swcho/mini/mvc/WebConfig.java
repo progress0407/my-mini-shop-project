@@ -23,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/**")
                 .excludePathPatterns(
-                        "/error",   // 에러 페이지 
+                        "/error/**",   // 에러 페이지
                         "/", "/index",  // HomeController
                         "/item/list",  // ItemController
                         "/member/**",  // MemberController

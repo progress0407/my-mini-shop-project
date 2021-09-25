@@ -3,7 +3,11 @@ server:
   servlet.session.tracking-modes: cookie # JESSIONID URL 전달 방식 끄기
   devtools:
     restart:
-      enabled: true
+      enabled: true # java파일 변경감지시 자동 재시작
+  error:
+    whitelabel:
+      enabled:
+        false
 
 logging:
   level:
