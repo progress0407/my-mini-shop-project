@@ -17,11 +17,11 @@ public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         StringBuffer requestURL = request.getRequestURL();
-//        log.info("[Request URL]    {}", requestURL);
+        log.info("[Request URL]    {}", requestURL);
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod hm = (HandlerMethod) handler;
-//            log.info("[Handler Bean & Method Name]    {} : {}", hm.getBean().getClass().getSimpleName(), hm.getMethod().getName());
+            log.info("[Handler Bean & Method Name]    {} : {}", hm.getBean().getClass().getSimpleName(), hm.getMethod().getName());
         }
         return true;
     }

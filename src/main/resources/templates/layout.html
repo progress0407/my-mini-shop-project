@@ -37,16 +37,34 @@
             <ul class="nav navbar-nav">
                 <li><a href="#" th:href="@{/item/add}">Item Add</a></li>
             </ul>
-            <ul th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')} == null" class="nav navbar-nav navbar-right">
-                <li><a href="#" th:href="@{/member/log-in}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                <li><a href="#" th:href="@{/member/sign-up}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+
+            <!-- 로그인하지 않았을 때 -->
+            <th:block th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')} == null">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" th:href="@{/member/log-in}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="#" th:href="@{/member/sign-up}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                </ul>
+            </th:block>
+
+            <!-- 로그인 했을 때 -->
+            <th:block th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')} != null">
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')?.authority?.name()} == 'ADMIN'">
+                        <a href="#" th:href="@{/test}"><span class="glyphicon glyphicon-apple"></span> TEST PAGE</a>
+                    </li>
+                    <li><a href="#" 
+                            th:href="|@{/member/{memberId}(memberId=${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')?.id})}|" 
+                            th:text="|${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')?.name} 님 안녕하세요 ! |"></a>
+                    </li>
+                    <li><a href="#" th:href="@{/member/log-out}"><span class="glyphicon glyphicon-log-oud"></span> Log out</a></li>
+                </ul>
+            </th:block>
+
+            <ul  class="nav navbar-nav navbar-right">
+                
             </ul>
-            <ul th:if="${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')} != null" class="nav navbar-nav navbar-right">
-                <li><a href="#" th:href="|@{/member/{memberId}(memberId=${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')?.id})}|" 
-                        th:text="|${#session?.getAttribute('SW_SHOP_LOGIN_SESSION')?.name} 님 안녕하세요 !|"></a>
-                </li>
-                <li><a href="#" th:href="@{/member/log-out}"><span class="glyphicon glyphicon-log-oud"></span> Log out</a></li>
-            </ul>
+
+            
         </div>
     </nav>
 

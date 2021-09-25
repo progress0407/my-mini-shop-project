@@ -36,12 +36,4 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         return true;
     }
 
-/*    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        HttpSession session = request.getSession(false);
-        Member member = (Member) session.getAttribute(LOGIN_SESSION_NAME);
-        if (member != null) {
-            modelAndView.addObject("member", member);
-        }
-    }*/
 }

@@ -143,9 +143,17 @@ public class ItemController {
      * 수정
      */
     @PostMapping("/update/{itemId}")
-    public String update(@Validated @PathVariable("itemId") Long id, @ModelAttribute ItemUpdateForm form) {
+    public String update(@PathVariable("itemId") Long id,
+                         @Validated @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult,
+                         Model model) {
         log.debug("id = {}", id);
         log.debug("item = {}", form);
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors = {}", bindingResult);
+            ViewFragment.setModelParameters(model, "fragments/item/item-detail-add-update", "item-detail-add-update", "U");
+            return LAYOUT_PATH;
+        }
 
 
         Item item = convertingVo.convertUpdateFormToItem(form);

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import swcho.mini.mvc.domain.item.ItemRepository;
 import swcho.mini.mvc.domain.item.ItemType;
+import swcho.mini.mvc.domain.member.Authority;
 import swcho.mini.mvc.domain.member.Member;
 import swcho.mini.mvc.domain.member.MemberRepository;
 
@@ -30,7 +31,9 @@ public class SampleDataInit {
     }
 
     private void createMemberSampleData() {
-        memberRepository.createMember(new Member("admin", "1234", "관리자"));
+        memberRepository.createMember(new Member("normal", "1234", "[테스트] 일반 사용자", Authority.NORMAL));
+        memberRepository.createMember(new Member("manager", "1234", "[테스트] 상품 관리자", Authority.MANAGER));
+        memberRepository.createMember(new Member("admin", "1234", "[테스트] 시스템 관리자", Authority.ADMIN));
     }
 
     private void createItemSampleData() {

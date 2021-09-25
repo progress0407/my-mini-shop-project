@@ -23,37 +23,33 @@
 
     <div class="row">
 
-      <form th:object="${member}" class="form-horizontal" action="#" th:action method="POST">
-        
-        <div th:if="${#fields.hasGlobalErrors()}">
-          <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label col-sm-2" for="id">ID:</label>
-          <div class="col-sm-4">
+      <div class="col-sm-offset-2 col-sm-6">
+        <form th:object="${member}" class="form-horizontal" action="#" th:action method="POST">
+          
+          <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+          </div>
+          <label class="control-label" for="id">ID:</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
             <input type="text" th:field="*{id}" class="form-control" placeholder="Enter ID">
           </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-sm-2" for="password">Password:</label>
-          <div class="col-sm-4">          
+          <label class="control-label" for="password">Password:</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" th:field="*{password}" class="form-control" placeholder="Enter password">
           </div>
-        </div>
-        <div class="form-group">        
-          <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-              <label><input type="checkbox" name="remember">Remember me</label>
-            </div>
+          <div class="input-group" style="margin-top: 1rem;">
+              <div class="checkbox" >
+                <label><input type="checkbox" name="remember">Remember me</label>
+              </div>
           </div>
-        </div>
-        <div class="form-group">        
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+          <div class="input-group" style="margin-top: 2rem;">
+              <button type="submit" class="btn btn-default">Submit</button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+      
     </div>
   </div>
 </body>

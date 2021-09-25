@@ -15,13 +15,20 @@ public class WebConfig implements WebMvcConfigurer {
         // 로깅
         registry.addInterceptor(new LoggingInterceptor())
                 .order(1)
-                .addPathPatterns("/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/lib/**", "/images/**");
 
         // 로그인 인증 체크
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/index", "/item/list", "/member/**", "/lib/**", "/images/**");
+                .excludePathPatterns(
+                        "/error",   // 에러 페이지 
+                        "/", "/index",  // HomeController
+                        "/item/list",  // ItemController
+                        "/member/**",  // MemberController
+                        "/lib/**", "/images/**" // 정적 리소스
+                );
 
     }
 }

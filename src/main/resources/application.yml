@@ -1,6 +1,9 @@
 server:
   port: 8081
   servlet.session.tracking-modes: cookie # JESSIONID URL 전달 방식 끄기
+  devtools:
+    restart:
+      enabled: true
 
 logging:
   level:
@@ -17,5 +20,6 @@ spring:
   # 타임리프 새로고침 없이 반영하기
   thymeleaf:
     cache: false
+#    prefix: file:src/main/resources/templates/
 
 

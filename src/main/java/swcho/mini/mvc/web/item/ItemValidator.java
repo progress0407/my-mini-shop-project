@@ -17,18 +17,12 @@ public class ItemValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        if(ItemSaveForm.class.isAssignableFrom(clazz)) {
+        if(ItemSaveForm.class.isAssignableFrom(clazz)
+                || ItemUpdateForm.class.isAssignableFrom(clazz)
+                || Item.class.isAssignableFrom(clazz)) {
             return true;
         }
-        else if (ItemUpdateForm.class.isAssignableFrom(clazz)) {
-            return true;
-        }
-        else if (Item.class.isAssignableFrom(clazz)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return false;
     }
 
     @Override

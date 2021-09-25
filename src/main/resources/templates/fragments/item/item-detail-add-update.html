@@ -212,10 +212,10 @@
           
           <div class="row" th:if="${dmlType} == 'R'" >
             <div class="col-sm-6">
-              <a class="btn btn-warning" href="#" th:href="|/update/${item.id}|" th:text="#{button.to.update}">수정</a>
+              <a class="btn btn-warning" href="#" th:href="|/item/update/${item.id}|" th:text="#{button.to.update}">수정</a>
             </div>
             <div class="col-sm-6" style="text-align: right;">
-              <a class="btn btn-danger" href="#" th:href="|/delete/${item.id}|" th:text="#{button.delete}">삭제</a>
+              <a class="btn btn-danger" href="#" th:href="|/item/delete/${item.id}|" th:text="#{button.delete}">삭제</a>
             </div>
           </div>
 
