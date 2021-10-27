@@ -59,6 +59,7 @@ public class MemberController {
 
     /**
      * 로그인
+     * Password 암호화 시키기
      */
     @PostMapping("/log-in")
     public String login(@ModelAttribute Member member, BindingResult bindingResult,

@@ -121,7 +121,7 @@ public class ItemController {
     @GetMapping("/delete/{itemId}")
     public String removeItemOne(@PathVariable("itemId") Long id, Model model) {
         itemRepository.deleteItemById(id);
-        return "redirect:/list";
+        return "redirect:/item/list";
     }
 
     /**

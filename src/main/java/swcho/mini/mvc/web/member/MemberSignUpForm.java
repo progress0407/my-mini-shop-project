@@ -2,7 +2,6 @@ package swcho.mini.mvc.web.member;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 import swcho.mini.mvc.domain.member.Authority;
 
 import javax.validation.constraints.NotBlank;
