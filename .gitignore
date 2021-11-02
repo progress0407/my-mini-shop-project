@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# gif 파일들 제외
+/gifs/

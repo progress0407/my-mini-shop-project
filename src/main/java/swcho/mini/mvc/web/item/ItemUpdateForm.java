@@ -24,7 +24,7 @@ public class ItemUpdateForm {
     private String name; // 상품명
 
     @NotNull
-    @Range(min = 1000, max = 1000000)
+    @Range(min = 1000, max = 1_000_000)
     private Integer price; // 상품 가격
 
     @NotNull
